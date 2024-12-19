@@ -1,0 +1,3 @@
+web:gunicorn online_marketing.wsgi --log-file
+web:python manage.py migrate && gunicorn online_marketing.wsg
+

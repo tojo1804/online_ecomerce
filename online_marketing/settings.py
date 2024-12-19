@@ -14,8 +14,10 @@ SECRET_KEY = 'django-insecure-)a$66x%rwp(jvf%mps^5nnux*jus$_qqjlvn&ti0(*8!+h-=d6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = ['https://online-ecomerce.onrender.com']
+ALLOWED_HOSTS = ['online-ecomerce.onrender.com']
 
+CSRF_TRUSTED_ORIGINS=['https://ecommercetojo.com']
 
 # Application definition
 
@@ -40,6 +42,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'online_marketing.urls'
@@ -113,6 +116,11 @@ STATIC_URL = 'static/'
 MEDIA_URL = 'media/'
 MEDIA_ROOT= os.path.join(BASE_DIR,'media')
 STATICFILES_DIRS=['static/']
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field

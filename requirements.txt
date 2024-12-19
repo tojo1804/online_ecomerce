@@ -8,6 +8,7 @@ idna==3.10
 packaging==24.2
 phonenumbers==8.13.50
 pillow==11.0.0
+psycopg2==2.9.10
 requests==2.32.3
 sqlparse==0.5.1
 tzdata==2024.2
