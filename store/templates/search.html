@@ -1,0 +1,47 @@
+{% extends 'index.html' %}
+{% block content %} 
+ <!-- Carrousel de Produits 2 -->
+    <div class="carousel-container" id="carousel2">
+        <div class="product-list" id="productList2">
+            <!-- Produits -->
+            {% if searched %}
+            {% for product in searched %}
+            	{% if product.sale_price %}
+            	<div class="product"><img src="{{product.image.url}}" alt="Produit 1">
+                    <h4>{{product.name}}</h4>
+                    <div>
+                        <span class="price">{{product.sale_price}}Ar</span>
+                        <span class="fake-price">{{product.price}}Ar</span>
+                    </div><br>
+                    <!-- <button class="add-to-cart-btn" data-url="{% url 'product_detail' product.id%}" onclick="window.location.href=this.getAttribute('data-url);">Voire produit
+                    </button> -->
+                    <a href="{% url 'product_detail'  product.id %}" class="
+                    add-to-cart-btn" style="text-decoration:none;" >voire produit</a>
+                </div>
+            	{% else %}
+            	<div class="product">
+            		<img src="{{product.image.url}}" alt="Produit 1"><h4>{{product.name}}</h4>
+            		<div>
+            		<!-- <span class="price">{{product.sale_price}}</span> -->
+            			<span class="fake-price">{{product.price}}</span>
+            		</div>
+            		<a href="{% url 'product_detail'  product.id %}" class="
+                    add-to-cart-btn" style="text-decoration:none;" >voire produit</a>
+        		</div>
+        		{% endif %}
+            {% endfor %}
+            {% endif %}
+
+            <div class="product"><img src="https://via.placeholder.com/150" alt="Produit 2"><h4>Produit 2</h4><div><span class="price">€25</span><span class="fake-price">€35</span></div><button class="add-to-cart-btn" onclick="addToCart()">Ajouter au panier</button></div>
+            <div class="product"><img src="https://via.placeholder.com/150" alt="Produit 3"><h4>Produit 3</h4><div><span class="price">€30</span><span class="fake-price">€45</span></div><button class="add-to-cart-btn" onclick="addToCart()">Ajouter au panier</button></div>
+            <div class="product"><img src="https://via.placeholder.com/150" alt="Produit 4"><h4>Produit 4</h4><div><span class="price">€35</span><span class="fake-price">€55</span></div><button class="add-to-cart-btn" onclick="addToCart()">Ajouter au panier</button></div>
+            <div class="product"><img src="https://via.placeholder.com/150" alt="Produit 5"><h4>Produit 5</h4><div><span class="price">€40</span><span class="fake-price">€65</span></div><button class="add-to-cart-btn" onclick="addToCart()">Ajouter au panier</button></div>
+        </div>
+         <!-- Boutons de contrôle du carrousel -->
+        <div class="carousel-buttons">
+            <button onclick="moveCarousel(-1, 2)">❮</button> <!-- Bouton Précédent -->
+            <button onclick="moveCarousel(1, 2)">❯</button> <!-- Bouton Suivant -->
+        </div>
+    </div>
+    
+{% endblock %}

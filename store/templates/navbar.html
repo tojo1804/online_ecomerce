@@ -1,0 +1,70 @@
+{% load static %}
+{% block content %}
+<!-- Navbar -->
+    <div class="navbar">
+        <div class="nav-left">
+            <img src="{% static 'assets/money.ico' %}" alt="Logo" class="logo">
+            <div class="nav-links">
+                <a href="{% url 'home' %}">Accueil</a>
+                {% if user.is_authenticated %}
+                <a href="{% url 'disconnect' %}">se deconnecter</a>
+                <a href="{% url 'update_user' %}"> Modifier votre profil </a>
+                <a href="{% url 'update_info' %}"> Modifier info </a>
+                {% if user.is_superuser %}
+                <div class="dropdown">
+                    <a href="#categories">Admin section</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'envoye_colis' %}">envoyé</a>
+                        <a href="{% url 'non_envoye_colis' %}">non envoyé</a>
+                        <!-- <a href="#">Catégorie 3</a> -->
+                        <!-- <a href="#">Catégorie 4</a> -->
+                    </div>
+                </div>
+                {% else %}
+
+                {% endif %}
+
+                {% else %}
+                <a href="{% url 'login_user' %}">se connecter</a> 
+
+                
+                
+                <div class="dropdown">
+                    <a href="#categories">Client</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'register_user' %}">Nouveau client</a>
+                        <a href="{% url 'category_summary' %}">All categories</a>
+                        <!-- <a href="#">Catégorie 3</a> -->
+                        <!-- <a href="#">Catégorie 4</a> -->
+                    </div>
+                </div>
+                {% endif %}
+                <div class="dropdown">
+                    <a href="#categories">Catégories</a>
+                    <div class="dropdown-content">
+                        <a href="{% url 'category' 'montre' %}">Montre</a>
+                        <a href="{% url 'category' 'smart-phone' %}">Smart Phone</a>
+                        <a href="{% url 'category' 'Ordinateur-portable' %}">Ordinateur Portable</a>
+                        <a href="{% url 'category' 'Book' %}">Book</a>
+                        <a href="{% url 'category_summary' %}">All categories</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <form method="POST" action="{% url 'search_product' %}" >
+        <div class="search-bar">
+            {% csrf_token %}
+            <input type="text" id="searchInput"  placeholder="Rechercher des produits..." name="searched" style="width:250px; height:20px;">
+            <button type="submit">🔍</button>
+        </div>
+        </form>
+
+        <div class="cart"> 
+            <a href="{% url 'cart_summary' %}">
+                🛒<span id="cart_quantity">{{cart|length}}</span>
+            </a>
+        </div>
+    </div>    
+
+
+{% endblock %}

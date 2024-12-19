@@ -1,0 +1,90 @@
+{% extends 'index.html' %}
+
+bonjour
+{{order}}
+{{items}}
+
+{% block content %}
+<style>
+    /* Style de la section */
+    .cadre-section {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 70vh; /* Hauteur réduite de la section */
+        background-color: #eaeaea;
+        margin: 20px auto; /* Centre la section verticalement avec un espace autour */
+        padding: 0;
+    }
+
+    /* Style du cadre */
+    .cadre {
+        background-color: #ffffff;
+        border: 2px solid #4CAF50;
+        border-radius: 10px;
+        padding: 20px;
+        width: 60%;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+        text-align: left; /* Alignement des textes à gauche */
+    }
+
+    /* Style des éléments internes */
+    .cadre .titre {
+        font-size: 2rem;
+        color: #333333;
+        margin-bottom: 10px;
+    }
+
+    .cadre .sous-titre {
+        font-size: 1.5rem;
+        color: #555555;
+        margin-bottom: 15px;
+    }
+
+    .cadre .paragraphe {
+        font-size: 1rem;
+        color: #666666;
+        line-height: 1.6;
+    }
+</style>
+
+<section class="cadre-section">
+    <div class="cadre">
+        <h1 class="titre">.......................Commande: {{order.id}}....................</h1>
+        <h2 class="sous-titre">Prix: {{order.amount_paid}} Ar</h2>
+        <p class="paragraphe">
+            Email: {{order.email}}<br>
+            {% if order.date_shipped %}
+                Date d'envoi: {{order.date_shipped}}<br>
+            {% else %}    
+                Date de commande: {{order.date_ordered}}<br>
+            {% endif %}
+            <br>
+            Nom: {{order.full_name}}<br>
+            Adresse de facturation: {{order.shipping_addresse}}
+        </p>
+        <br>
+        {% for item in items %}
+        <p class="paragraphe" >
+            produit:{{item.product}}<br>
+            quantity :{{item.quantity}}<br>
+            prix:  {{item.price}} ar <br>
+
+        </p>
+        {% endfor %}
+        {% if not order.shipped %}
+        <form method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="shipping_status" value="true">
+            <button type="submit">alefa ny commande</button>
+        </form>
+        {% else %}
+        <form method="POST" >
+            {% csrf_token %}
+            <input type="hidden" name="shipping_status" value="false">
+            <button type="submit">tapaho ny commande</button>
+        </form>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}

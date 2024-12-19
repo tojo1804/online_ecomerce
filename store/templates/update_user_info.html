@@ -1,0 +1,109 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>Custom Form</title>
+</head>
+<style type="text/css">
+    /* Général pour tous les formulaires */
+form {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="email"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.btn-submit {
+    background-color: #007bff;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
+
+.btn-submit:hover {
+    background-color: #0056b3;
+}
+
+
+/* Fichier CSS personnalisé */
+.custom-input {
+    width: 100%; /* Occuper toute la largeur */
+    padding: 10px; /* Ajout de padding pour le confort */
+    margin-bottom: 15px; /* Espacement entre les champs */
+    border: 1px solid #ccc; /* Bordure légère */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 16px; /* Taille de police lisible */
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1); /* Ombre intérieure légère */
+}
+
+.custom-input:focus {
+    border-color: #007bff; /* Changement de bordure au focus */
+    outline: none; /* Suppression de l'effet par défaut */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.5); /* Effet lumineux au focus */
+}
+
+
+</style>
+<body>
+    <h1>Fill the form</h1>
+    <form method="post" action="update_info">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="id_phone">Phone:</label>
+            {{ form.phone }}
+        </div>
+        <div class="form-group">
+            <label for="id_address">Address:</label>
+            {{ form.address }}
+        </div>
+        <div class="form-group">
+            <label for="id_ville">City:</label>
+            {{ form.ville }}
+        </div>
+
+
+        <strong style="color:red">addresse de facturation</strong>   
+        <div class="form-group">
+        {% csrf_token %}
+        {{ shipping_form.as_p }}
+        <!-- <button type="submit">Submit</button> -->
+        </div>
+
+
+
+
+
+
+
+        <button type="submit" class="btn-submit">Submit</button>
+    </form>
+</body>
+</html>

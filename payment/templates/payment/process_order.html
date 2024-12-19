@@ -1,0 +1,252 @@
+{% extends 'index.html' %}
+
+{% block content %}
+<style>
+    /* Style pour le cadre principal */
+    section {
+        border: 3px solid #2FC89F;
+        padding: 50px;
+        width: 85%;
+        margin: 50px auto;
+        background-color: #DAFFFF;
+        border-radius: 12px;
+        box-shadow: 6px 6px 20px rgba(0, 0, 0, 0.2);
+    }
+
+    section h1 {
+        font-size: 32px;
+        text-align: center;
+        color: #007BFF;
+        margin-bottom: 30px;
+        font-family: 'Arial', sans-serif;
+    }
+
+    section p {
+        font-size: 18px;
+        color: #333;
+        text-align: justify;
+        line-height: 1.8;
+        margin-bottom: 30px;
+        font-family: 'Georgia', serif;
+    }
+
+    /* Style pour le cadre intérieur */
+    .inner-frame {
+        border: 2px dashed #ff5722;
+        padding: 30px;
+        background-color: #fff8e1;
+        border-radius: 10px;
+        margin-top: 30px;
+        box-shadow: 4px 4px 15px rgba(0, 0, 0, 0.1);
+    }
+
+    .inner-frame h2 {
+        font-size: 26px;
+        color: #ff5722;
+        margin-bottom: 20px;
+        font-family: 'Arial', sans-serif;
+        text-align: center;
+    }
+
+    .inner-frame p {
+        font-size: 17px;
+        color: #444;
+        text-align: justify;
+        line-height: 1.7;
+        font-family: 'Georgia', serif;
+    }
+
+
+
+
+/* Conteneur général du formulaire */
+.delivery-form {
+    max-width: 500px; /* Largeur maximale */
+    margin: 20px auto; /* Centré horizontalement avec un espace en haut/bas */
+    padding: 20px; /* Espacement interne */
+    background-color: #ffffff; /* Fond blanc */
+    border: 1px solid #ddd; /* Bordure légère */
+    border-radius: 8px; /* Coins arrondis */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); /* Ombre subtile */
+    font-family: 'Arial', sans-serif; /* Police moderne et lisible */
+}
+
+/* Titre du formulaire */
+.delivery-form h2 {
+    font-size: 1.6em; /* Taille du texte */
+    text-align: center; /* Centrer le titre */
+    color: #333; /* Couleur sombre */
+    margin-bottom: 20px; /* Espacement sous le titre */
+}
+
+/* Champs de formulaire */
+.delivery-form input,
+.delivery-form textarea,
+.delivery-form select {
+    width: 100%; /* Largeur totale du champ */
+    padding: 10px; /* Espacement interne */
+    margin-bottom: 15px; /* Espacement entre les champs */
+    border: 1px solid #ccc; /* Bordure douce */
+    border-radius: 5px; /* Coins légèrement arrondis */
+    font-size: 1em; /* Taille de police confortable */
+    box-sizing: border-box; /* Empêche le débordement */
+    background-color: #f9f9f9; /* Fond légèrement gris */
+}
+
+/* Effet au focus */
+.delivery-form input:focus,
+.delivery-form textarea:focus,
+.delivery-form select:focus {
+    border-color: #007bff; /* Couleur de bordure bleue au focus */
+    background-color: #fff; /* Fond blanc au focus */
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.3); /* Ombre subtile */
+    outline: none; /* Retirer le contour par défaut */
+}
+
+/* Bouton de soumission */
+.delivery-form button {
+    width: 100%; /* Largeur totale */
+    padding: 12px 20px; /* Espacement interne */
+    background-color: #007bff; /* Couleur principale */
+    color: white; /* Texte blanc */
+    border: none; /* Pas de bordure */
+    border-radius: 5px; /* Coins arrondis */
+    font-size: 1em; /* Taille de texte */
+    cursor: pointer; /* Curseur pointeur */
+    transition: background-color 0.3s ease; /* Animation de survol */
+}
+
+/* Bouton survolé */
+.delivery-form button:hover {
+    background-color: #0056b3; /* Couleur plus foncée */
+}
+
+/* Gestion des erreurs Django */
+.delivery-form .errorlist {
+    color: #d9534f; /* Couleur rouge pour signaler les erreurs */
+    margin-bottom: 10px; /* Espacement sous les erreurs */
+    font-size: 0.9em; /* Texte légèrement plus petit */
+    list-style: none; /* Pas de puces */
+}
+
+/* Labels des champs */
+.delivery-form label {
+    font-weight: bold; /* Texte en gras */
+    margin-bottom: 5px; /* Espacement avec le champ */
+    display: block; /* Forcer l'affichage en bloc */
+    color: #555; /* Couleur du label */
+}
+
+/* Espacement des paragraphes générés par as_p */
+.delivery-form p {
+    margin-bottom: 15px; /* Espacement entre les lignes */
+}
+
+
+
+
+
+
+
+
+
+
+
+</style>
+
+<section>
+    <h1>Verification des achats ou commandes</h1>
+    <!-- <p>
+        Ce cadre principal est conçu pour offrir un espace généreux et une lisibilité optimale. Il peut contenir des descriptions générales
+        ou des informations importantes pour l'utilisateur. Avec une largeur plus grande et un style moderne, il est idéal pour présenter
+        des contenus organisés.
+    </p>
+ -->
+    <!-- Cadre intérieur -->
+    <div class="inner-frame">
+    {% if user.is_authenticated %}
+        {% for product in cart_products %}
+            {% if product.is_sale %}
+                <h2>{{product.name}}</h2>
+                <p>
+                Description: {{product.description}}
+                </p>
+                <h3>Prix:{{product.sale_price}}ar</h3>
+
+        <!-- <img src="{{product.image.url}}" style="width:100px;float:center;margin-left: 20px;"> -->
+            {% else %}
+                <h2>{{product.name}}</h2>
+                <p>
+                Description: {{product.description}}
+                </p>
+                <h3>Prix:{{product.price}}</h3>
+
+            {% endif %}
+            quantity:
+                {% for key,value in quantities.items%}
+                    {% if key == product.id|slugify %}
+                        {{ value}}
+                    {% endif %}
+                {% endfor %}
+        {% endfor %}<br><br>
+        Total de tout produit:{{totals}} ar
+    {% else%}
+
+    {% for product in cart_products %}
+            {% if product.is_sale %}
+                <h2>{{product.name}}</h2>
+                <p>
+                Description: {{product.description}}
+                </p>
+                <h3>Prix:{{product.sale_price}}ar</h3>
+
+        <!-- <img src="{{product.image.url}}" style="width:100px;float:center;margin-left: 20px;"> -->
+            {% else %}
+                <h2>{{product.name}}</h2>
+                <p>
+                Description: {{product.description}}
+                </p>
+                <h3>Prix:{{product.price}}</h3>
+
+            {% endif %}
+            quantity:
+                {% for key,value in quantities.items%}
+                    {% if key == product.id|slugify %}
+                        {{ value}}
+                    {% endif %}
+                {% endfor %}
+        {% endfor %}<br><br>
+        Total de tout produit:{{totals}} ar <br><br>
+       <h3> Numero d'envoi de money: 0348808498</h3>
+    {% endif %}
+    </div><br>
+    <button onclick="window.location.href='{% url 'cart_summary' %}'">Revenir</button>
+    <div class="inner-frame">
+
+    <!-- <form method="POST" class="delivery-form" action="{% url 'billing_info' %}" > -->
+    <h2>Information livraison</h2>
+    <!-- {% csrf_token %} -->
+    Nom:{{ shipping_info.Shipping_full_name}}<br>
+    email:{{shipping_info.Shipping_email}}<br>
+    Adresse:{{shipping_info.Shipping_addresse}}<br>
+    Ville/city:{{shipping_info.Shipping_city}}<br>
+    code postale:{{shipping_info.Shipping_zipcode}}<br><br>
+    <button type="submit" >Payer</button>
+    <!-- </form> -->
+
+    </div>
+    <div class="inner-frame">
+
+    <!-- <form method="POST" class="delivery-form" action="{% url 'process_order' %}" > -->
+    <h2>Information livraison</h2>
+    <!-- {% csrf_token %} -->
+        <!-- {{billing_form.as_p}} -->
+
+    <!-- <button type="submit" >Payer</button> -->
+    <!-- </form> -->
+
+    </div>
+</section>
+
+
+{% endblock %}

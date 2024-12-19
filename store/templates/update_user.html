@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Update User</title>
+    <style>
+        /* Style de base */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #eef2f3;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            padding: 0;
+        }
+        
+        /* Conteneur du formulaire */
+        .form-container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+            width: 350px;
+            text-align: center;
+        }
+        
+        .form-container h2 {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        
+        /* Groupement de champs de formulaire */
+        .form-group {
+            margin-bottom: 20px;
+            text-align: left;
+        }
+        
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 5px;
+            color: #333;
+        }
+        
+        .form-group input[type="text"],
+        .form-group input[type="email"] {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 14px;
+            box-sizing: border-box;
+        }
+
+        .form-group small {
+            color: #888;
+            font-size: 12px;
+            display: block;
+            margin-top: 5px;
+        }
+
+        /* Boutons */
+        .button-group {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 20px;
+        }
+        
+        .submit-btn,
+        .home-btn {
+            padding: 10px 20px;
+            font-size: 16px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            width: 48%;
+        }
+
+        .submit-btn {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .submit-btn:hover {
+            background-color: #0056b3;
+        }
+
+        .home-btn {
+            background-color: #6c757d;
+            color: white;
+            width:120px;
+            text-decoration:none;
+        }
+
+        .home-btn:hover {
+            background-color: #5a6268;
+        }
+    </style>
+</head>
+<body>
+
+<div class="form-container">
+    <h2>Update Your Profile</h2>
+    <form method="post">
+        {% csrf_token %}
+        
+        <!-- Champ Username -->
+        <div class="form-group">
+            {{ form.username.label_tag }}
+            {{ form.username }}
+            <small>{{ form.username.help_text }}</small>
+        </div>
+
+        <!-- Champ First Name -->
+        <div class="form-group">
+            {{ form.first_name.label_tag }}
+            {{ form.first_name }}
+        </div>
+
+        <!-- Champ Last Name -->
+        <div class="form-group">
+            {{ form.last_name.label_tag }}
+            {{ form.last_name }}
+        </div>
+
+        <!-- Champ Email -->
+        <div class="form-group">
+            {{ form.email.label_tag }}
+            {{ form.email }}
+        </div>
+
+        <!-- Boutons Submit et Accueil -->
+        <div class="button-group">
+            <button type="submit" class="submit-btn">Update</button>
+            <a href="{% url 'home' %}" class="home-btn">Home</a>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

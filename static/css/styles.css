@@ -1,0 +1,192 @@
+body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-image: url('laptop1.jpg'); 
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            color: #333333;
+        }
+
+        /* Navbar */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem;
+            background-color: #ffffff;
+            color: #333333;
+        }
+
+        .nav-left {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .logo {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 15px;
+            position: relative; /* Important pour le positionnement du sous-menu */
+        }
+
+        .navbar a {
+            color: #333333;
+            text-decoration: none;
+        }
+
+        /* Styles pour le menu déroulant */
+        .dropdown {
+            position: relative;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: rgba(248, 248, 248, 0.9);
+            min-width: 160px;
+            box-shadow: 0px 8px 16px rgba(0, 0, 0, 0.2);
+            z-index: 1;
+        }
+
+        .dropdown-content a {
+            color: #333333;
+            padding: 8px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #ddd;
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .search-bar {
+            display: flex;
+            justify-content: center;
+            width: 40%;
+        }
+
+        .search-bar input[type="text"] {
+            width: 80%;
+            padding: 8px;
+            font-size: 16px;
+            border-radius: 5px;
+            border: 1px solid #4CAF50;
+        }
+
+        .search-bar button {
+            padding: 8px 10px;
+            font-size: 16px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin-left: 5px;
+        }
+
+        .cart {
+            font-size: 24px;
+            cursor: pointer;
+        }
+
+        /* Carrousel de Produits */
+        .carousel-container {
+            overflow: hidden;
+            padding: 1rem;
+            background-color: rgba(240, 240, 240, 0.8);
+            position: relative;
+            width: 100%;
+            margin-bottom: 20px;
+        }
+
+        .product-list {
+            display: flex;
+            transition: transform 0.5s ease-out;
+        }
+
+        .product {
+            border: 1px solid #cccccc;
+            padding: 1rem;
+            min-width: 200px;
+            text-align: center;
+            border-radius: 5px;
+            background-color: #ffffff;
+            color: #333333;
+            margin-right: 20px; /* Espace entre les produits */
+        }
+
+        .product img {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .product .price {
+            color: #4CAF50;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .product .fake-price {
+            color: #999999;
+            text-decoration: line-through;
+            margin-left: 10px;
+        }
+
+        .add-to-cart-btn {
+            margin-top: 10px;
+            padding: 5px 10px;
+            background-color: #4CAF50;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        /* Flèches du Carrousel */
+        .carousel-buttons {
+            position: absolute;
+            top: 50%;
+            left: 0;  /* Bouton gauche collé au bord gauche */
+            right: 0; /* Bouton droit collé au bord droit */
+            display: flex;
+            justify-content: space-between;
+            transform: translateY(-50%);
+            padding: 0 10px; /* Réduire l'espacement des boutons */
+            z-index: 1;
+        }
+
+        .carousel-buttons button {
+            background-color: rgba(0, 0, 0, 0.6);
+            border: none;
+            font-size: 36px; /* Boutons plus grands */
+            color: #fff;
+            padding: 15px;
+            cursor: pointer;
+            border-radius: 50%;
+            transition: background-color 0.3s;
+        }
+
+        .carousel-buttons button:hover {
+            background-color: rgba(0, 0, 0, 0.8);
+        }
+
+        /* Pied de page */
+        footer {
+            background-color: rgba(248, 248, 248, 0.9);
+            color: #333333;
+            padding: 2rem 1rem;
+            text-align: center;
+        }

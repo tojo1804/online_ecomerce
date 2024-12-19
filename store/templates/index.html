@@ -1,0 +1,60 @@
+
+{% load static %}
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Site de Commerce</title>
+    <link rel="icon" type="image/x-icon" href="{%static 'assets/money.ico' %}" />
+    <link href="{% static 'css/styles.css' %}" rel="stylesheet" />
+    <style type="text/css">
+        .alert {
+            padding: 10px;
+            background-color: #f44336; /* Rouge */
+            color: white;
+            margin: 10px 0;
+            border-radius: 4px;
+            position: relative;
+        }
+
+        .alert .closebtn {
+            position: absolute;
+            right: 10px;
+            top: 5px;
+            color: white;
+            font-weight: bold;
+            font-size: 18px;
+            cursor: pointer;
+        }
+
+
+
+ 
+
+    </style>
+</head>
+<body> 
+    {% include 'navbar.html' %}
+    {% if messages %}
+        {% for message in messages %}
+        <div class="alert">
+        <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+        {{message}}
+        </div>
+        {% endfor %}
+    {% endif %}
+    <main>
+    {% block content %}{% endblock %}
+    </main>
+    
+
+    <footer>
+        <p>&copy; 2024  Albert Commerce. Tous droits réservés.</p>
+        <p>tojoalbertphysicien@gmail.com</p>
+    </footer>
+
+    <script src="{% static 'js/script.js'%}"></script>
+    
+</body>
+</html>

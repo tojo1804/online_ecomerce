@@ -1,0 +1,339 @@
+{% extends 'index.html' %}
+{% load static %}
+{% block content %}
+<style>
+    /* Conteneur principal des produits */
+    .product-container {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+        padding: 20px;
+    }
+
+    .product-card {
+        display: flex;
+        flex-direction: row;  /* Utiliser une ligne pour aligner horizontalement */
+        width: 100%;
+        max-width: 1000px;
+        min-width: 600px;
+        background-color: #fff;
+        border: 2px solid #ddd;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+    }
+
+    /* Partie gauche : Image */
+    .product-image {
+        width: 30%;
+        padding: 10px;
+    }
+
+    .product-image img {
+        width: 100%;
+        height: auto;
+        object-fit: cover;
+        border-radius: 10px;
+    }
+
+    /* Partie centrale : Description et prix */
+    .product-info {
+        width: 40%;
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: flex-start;
+        gap: 15px;
+    }
+
+    .product-description h2 {
+        font-size: 18px;
+        color: #333;
+        margin-bottom: 10px;
+        text-align: left;
+    }
+
+    .product-description p {
+        font-size: 14px;
+        color: #555;
+        text-align: left;
+    }
+
+    .product-price p {
+        font-size: 16px;
+        color: #d9534f;
+        font-weight: bold;
+        text-align: left;
+    }
+
+    .quantity-selection {
+        margin-top: 15px;
+        text-align: left;
+    }
+
+    .quantity-selection label {
+        font-size: 14px;
+    }
+
+    .quantity-selection select {
+        padding: 5px;
+        font-size: 14px;
+        width: 70px;
+    }
+
+    /* Partie droite : Boutons */
+    .product-actions {
+        width: 30%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 10px;
+        padding: 20px;
+        text-align: center;
+    }
+
+    .btn-home,
+    .btn-details,
+    .btn-cart {
+        padding: 8px 16px;
+        font-size: 14px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: background-color 0.3s;
+    }
+
+    .btn-home {
+        background-color: crimson;
+        border: none;
+        color: white;
+    }
+
+    .btn-home:hover {
+        background-color: darkred;
+    }
+
+    .btn-details {
+        background-color: orange;
+        border: none;
+        color: white;
+    }
+
+    .btn-details:hover {
+        background-color: darkorange;
+    }
+
+    .btn-cart {
+        background-color: green;
+        border: none;
+        color: white;
+    }
+
+    .btn-cart:hover {
+        background-color: darkgreen;
+    }
+    .vatany{
+        width:100%;
+         display: flex;
+        flex-wrap: wrap;
+        gap: 20px;
+        justify-content: flex-start;
+        padding:0;
+
+    }
+    .product-card1{
+        display: flex;
+        flex-direction: row;  /* Utiliser une ligne pour aligner horizontalement */
+        width: 100%;
+        max-width: 1000px;
+        min-width: 600px;
+        background-color: #c6e08a;
+        border: 2px solid #ccc;
+        border-radius: 15px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        overflow: hidden;
+
+    }
+</style>
+<script type="text/javascript" src="{% static 'js/tojo.js' %}"></script>
+<br>
+<div class="product-container">
+    {% if cart_products %}
+        {% for product in cart_products %}
+        <div class="product-card">
+            {% if product.is_sale %}
+            <!-- Partie gauche : Image -->
+            <div class="product-image">
+                <img src="{{ product.image.url }}" alt="Image du produit">
+            </div>
+
+            <!-- Partie centrale : Description et prix -->
+            <div class="product-info">
+                <div class="product-description">
+                    <h2>{{ product.name }}</h2>
+                    <p>description: {{ product.description }}</p>
+                </div>
+                <div class="product-price">
+                    <p class="sale-price">prix: {{ product.sale_price }} ar</p>
+                    <strike>taloha: {{ product.price }} ar</strike>
+                </div>
+                <div class="quantity-selection">
+                    <label for="quantity-{{ product.id }}">Quantité:</label>
+                    <select id="select{{product.id}}" name="quantity">
+                        
+                            {'4':3,'2':4}
+                        {% for key,value in quantities.items %}
+                            {% if key == product.id|slugify %}
+                             <option selected>  {{value}}</option>
+                            {% endif %}
+                        {% endfor %} 
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Partie droite : Boutons -->
+            <div class="product-actions">
+                <button class="btn-home" onclick="window.location.href='{% url 'home' %}'">Accueil</button>
+                <button data-index="{{product.id}}" class="btn-details update-cart">modifier</button>
+                <button type="button" class="btn-cart delete-product " data-index="{{product.id}} ">supprimer</button>
+            </div>
+            {% else %}
+            <!-- Partie gauche : Image -->
+            <div class="product-image">
+                <img src="{{ product.image.url }}" alt="Image du produit">
+            </div>
+
+            <!-- Partie centrale : Description et prix -->
+            <div class="product-info">
+                <div class="product-description">
+                    <h2>{{ product.name }}</h2>
+                    <p>{{ product.description }}</p>
+                </div>
+                <div class="product-price">
+                    <p class="price">{{ product.price }} ar</p>
+                </div>
+                <div class="quantity-selection">
+                    <label for="quantity">Quantité:</label>
+                    <select id="quantity-{{ product.id }}" name="quantity">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+            </div>
+
+            <!-- Partie droite : Boutons -->
+            <div class="product-actions">
+                <button class="btn-home" onclick="window.location.href='{% url 'home' %}'">Accueil</button>
+                <button class="btn-details">Détails</button>
+                <button class="btn-cart">Ajouter au panier</button>
+            </div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <div class="vatany">
+            <div class="product-card1">
+                <div>
+                    <img src="{% static 'assets/money.ico' %}" style="width:150px;">
+                </div>
+                <div class="product-description">
+                    <h2>Total de toute produit</h2>
+                    <p>description de prix :</p>
+                    <p>totals:{{totals}} Ar</p><br>
+                    <center>
+                    <button style="width:150px;height:50px;background-color:#2FEF9F;border-radius:10px;" onclick="window.location.href='{% url 'checkout' %}'" >Verification</button></center><br>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <strong><h2>THERE IS NOTHING IN YOUR CART. Mandehana mi-commander!</h2></strong>
+    {% endif %}
+</div>
+
+<br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br><br>
+<script >
+    // update cart
+    // / check if buuton pressed
+    $(document).on('click','.update-cart',function(e){
+        e.preventDefault();
+        // grabe the product id
+        var productid = $(this).data('index');
+
+
+        $.ajax({
+            type: 'POST',
+            url:'{% url 'cart_update' %}',
+            data:{
+                product_id:$(this).data('index'),
+                product_qty:$('#select' + productid + ' option:selected').text(),
+                csrfmiddlewaretoken:'{{csrf_token}}',
+                action:'post'
+
+            },
+            success: function(json){
+
+                console.log(json)
+                location.reload();
+            },
+            error:function(xhr,errmsg,err){
+
+            } 
+
+        });
+    })
+// delete cart 
+// / check if buuton pressed
+    $(document).on('click','.delete-product',function(e){
+        e.preventDefault();
+        // grabe the product id
+        // var productid = $(this).data('index');
+
+
+        $.ajax({
+            type: 'POST',
+            url:'{% url 'cart_delete' %}',
+            data:{
+                product_id:$(this).data('index'),
+                csrfmiddlewaretoken:'{{csrf_token}}',
+                action:'post'
+
+            },
+            success: function(json){
+
+                console.log(json)
+                location.reload();
+            },
+            error:function(xhr,errmsg,err){
+
+            } 
+
+        });
+    })
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+{% endblock %}
